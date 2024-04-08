@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express'
 import 'express-async-errors';
+import swaggerUI from 'swagger-ui-express';
 import cors from 'cors';
 import path from 'path';
 
@@ -11,6 +12,7 @@ app.use(cors());
 
 app.use(router);
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(require('./swagger-output.json')));
 app.use('/files', express.static(path.resolve(__dirname, '..', 'temp')))
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -1,0 +1,11 @@
+para acessar as imagens na web, usar a url + files + nome da imagem, exemplo:
+
+http://localhost:5000/files/nome_da_imagem
+
+o nome da imagem está dentro da pasta "temp"
+
+-------------------------------------------------------------------------------------
+
+para acessar a documentação da api no swagger:
+
+http://localhost:5000/api-docs/#/

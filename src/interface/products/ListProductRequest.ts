@@ -1,3 +1,3 @@
 export interface ListProductRequest{
-    category_id: string
+    category_id: string,
 }
