@@ -7,7 +7,10 @@ class CreatedProductsController {
 
         const createdProductService = new CreatedProductService();
 
-        if (!req.file) {
+        if (!name || !price || !category_id) {
+            res.status(400).json({error: "fields invalid"})
+            return;
+        } else if (!req.file) {
             throw new Error("error upload file")
         } else {
 

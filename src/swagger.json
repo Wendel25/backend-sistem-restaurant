@@ -1,0 +1,670 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Restaurant Management",
+    "description": "API developed by CodeWave",
+    "termsOfService": "http://localhost:5000/terms",
+    "contact": {
+      "email": "luccawendel25@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "API localhost"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "login",
+        "description": "Log in to get access token",
+        "tags": ["Login"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "email": "wendel.lucca@gmail.com.br",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Login"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logged-user": {
+      "get": {
+        "summary": "Get registered users",
+        "description": "Returns a list of all registered users",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Get registered categories",
+        "description": "Returns a list of all registered categories",
+        "tags": ["Category"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/new-category": {
+      "post": {
+        "description": "Create new categories",
+        "tags": ["Category"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "name": "new-category"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category": {
+      "delete": {
+        "description": "Delete categories",
+        "tags": ["Category"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Insert ID",
+            "x-ms-parameterized-host": {
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "id requerid"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "All the products",
+        "description": "Returns list of registered products",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/active": {
+      "get": {
+        "summary": "All the products active",
+        "description": "Returns list of registered active products",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/product": {
+      "get": {
+        "summary": "Return the product",
+        "description": "Returns product based on category",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "query",
+            "x-ms-parameterized-host": {
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/new-product": {
+      "post": {
+        "summary": "Create new product",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProduct"
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "name": "Coca cola",
+                    "price": "4.00",
+                    "description": "Coca cola lata de 220ml",
+                    "banner": "",
+                    "category_id": "79534234-cdb7-4c02-8c0f-d7de9248e948"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/product": {
+      "put": {
+        "summary": "Update product",
+        "description": "Update a product by category_id",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "query",
+            "x-ms-parameterized-host": {
+              "required": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProduct"
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "name": "Coca cola",
+                    "price": "4.00",
+                    "description": "Coca cola lata de 220ml",
+                    "banner": "",
+                    "category_id": "79534234-cdb7-4c02-8c0f-d7de9248e948"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders-list": {
+      "get": {
+        "summary": "Return tables",
+        "tags": ["Tables"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tables"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create-orders": {
+      "post": {
+        "summary": "Create new table",
+        "tags": ["Tables"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tables"
+              },
+              "examples": {
+                "table": {
+                  "value": {
+                    "table": 10
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Tables"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order": {
+      "delete": {
+        "summary": "Closed table open",
+        "description": "Delete table open",
+        "tags": ["Tables"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "description": "order_id",
+            "x-ms-parameterized-host": {
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order/add": {
+      "post": {
+        "summary": "Add products to the table",
+        "tags": ["Items"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Items"
+              },
+              "examples": {
+                "table": {
+                  "value": {
+                    "order_id": "1111111111111111111",
+                    "product_id": "222222222222222222",
+                    "amount": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Items"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/item": {
+      "delete": {
+        "summary": "Delete products for table",
+        "tags": ["Items"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "query",
+            "description": "item_id",
+            "x-ms-parameterized-host": {
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "summary": "Return orders",
+        "tags": ["Orders"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/finish": {
+      "put": {
+        "summary": "Closed order",
+        "tags": ["Orders"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "ID da ordem a ser fechada",
+                    "example": "4b226501-0576-4244-876a-b061b2cdf4fb"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order/detail": {
+      "get": {
+        "summary": "Return the details",
+        "description": "Return all order details",
+        "tags": ["Orders"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "x-ms-parameterized-host": {
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "banner": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "active": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateProduct": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "Coca cola"
+          },
+          "price": {
+            "type": "6.00"
+          },
+          "description": {
+            "type": "Coca cola lata de 220ml"
+          },
+          "banner": {
+            "type": "string",
+            "format": "binary"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "category_id": {
+            "type": "string"
+          }
+        }
+      },
+      "Tables": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "table": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "draft": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Items": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          }
+        }
+      },
+      "Orders": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "table": {
+            "type": "number"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        }
+      },
+      "ClosedOrder": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

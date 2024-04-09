@@ -58,8 +58,8 @@ router.get('/category/product', isAuthenticated, new ListByCategoryController().
 router.put('/product', isAuthenticated, upload.single('banner'), new UpdateProductController().handle);
 
 //Ordens
-router.get('/order', isAuthenticated, new ListOrdersOpenController().handle);
-router.post('/order', isAuthenticated, new CreateOrderController().handle);
+router.get('/orders-list', isAuthenticated, new ListOrdersOpenController().handle);
+router.post('/create-orders', isAuthenticated, new CreateOrderController().handle);
 router.delete('/order', isAuthenticated, new RemoveOrderController().handle);
 
 router.post('/order/add', isAuthenticated, new AddItemController().handle);

@@ -7,14 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// criar uma migration nova npx prisma migrate dev
-
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String
-  password String
-
+  id         String    @id @default(uuid())
+  name       String
+  email      String
+  password   String
   created_at DateTime? @default(now())
   update_at  DateTime? @default(now())
 
@@ -22,9 +19,8 @@ model User {
 }
 
 model Category {
-  id   String @id @default(uuid())
-  name String
-
+  id         String    @id @default(uuid())
+  name       String
   created_at DateTime? @default(now())
   update_at  DateTime? @default(now())
   products   Product[]
@@ -38,25 +34,22 @@ model Product {
   price       String
   description String
   banner      String
-  active      Boolean   @default(true)
-
   created_at  DateTime? @default(now())
-  updated_at  DateTime? @default(now())
-
-  category    Category  @relation(fields: [category_id], references: [id])
   category_id String
+  active      Boolean   @default(true)
+  item_count  Int       @default(0)
+  category    Category  @relation(fields: [category_id], references: [id])
   items       Item[]
 
   @@map("products")
 }
 
 model Order {
-  id     String  @id @default(uuid())
-  table  Int
-  status Boolean @default(false)
-  draft  Boolean @default(true)
-  name   String?
-
+  id         String    @id @default(uuid())
+  table      Int
+  status     Boolean   @default(false)
+  draft      Boolean   @default(true)
+  name       String?
   created_at DateTime? @default(now())
   update_at  DateTime? @default(now())
   items      Item[]
@@ -65,17 +58,14 @@ model Order {
 }
 
 model Item {
-  id     String @id @default(uuid())
-  amount Int
-
+  id         String    @id @default(uuid())
+  amount     Int
   created_at DateTime? @default(now())
   update_at  DateTime? @default(now())
-
-  Order   Order   @relation(fields: [order_id], references: [id])
-  product Product @relation(fields: [product_id], references: [id])
-
   order_id   String
   product_id String
+  Order      Order     @relation(fields: [order_id], references: [id])
+  product    Product   @relation(fields: [product_id], references: [id])
 
   @@map("items")
 }
