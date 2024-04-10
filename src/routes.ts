@@ -29,8 +29,8 @@ import { ListOrdersOpenController } from './controllers/orders/Table/ListOrdesOp
 import { AddItemController } from './controllers/orders/Item/AddItemController';
 import { RemoveItemController } from './controllers/orders/Item/RemoveItemController';
 import { SendOrderController } from './controllers/orders/Details-order/SendOrderController';
-import { ListOrdersController } from './controllers/orders/ListOrdersController';
-import { FinishOrderController } from './controllers/orders/FinishOrderController';
+import { ListOrdersController } from './controllers/orders/Finish-orders/ListOrdersController';
+import { FinishOrderController } from './controllers/orders/Finish-orders/FinishOrderController';
 import { DetailOrderController } from './controllers/orders/Details-order/DetailOrderController';
 
 import uploadConfig from './config/multer';

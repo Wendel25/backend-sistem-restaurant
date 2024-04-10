@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express'
+import bodyParser from 'body-parser';
 import 'express-async-errors';
 import swaggerUI from 'swagger-ui-express';
 import cors from 'cors';
@@ -8,6 +9,7 @@ import { router } from './routes'
 import swaggerDocs from './swagger.json';
 
 const app = express();
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 

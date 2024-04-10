@@ -1,5 +1,5 @@
-import prismaClient from "../../prisma";
-import { FinishOrder } from './../../interface/orders/FinishOrder';
+import prismaClient from "../../../prisma";
+import { FinishOrder } from '../../../interface/orders/FinishOrder';
 
 class FinishOrderService {
   async execute({ order_id }: FinishOrder) {
@@ -9,7 +9,7 @@ class FinishOrderService {
         id: order_id
       },
       data: {
-        status: false,
+        status: true,
       }
     })
 

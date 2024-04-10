@@ -37,7 +37,6 @@ model Product {
   created_at  DateTime? @default(now())
   category_id String
   active      Boolean   @default(true)
-  item_count  Int       @default(0)
   category    Category  @relation(fields: [category_id], references: [id])
   items       Item[]
 

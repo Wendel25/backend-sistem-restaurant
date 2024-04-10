@@ -6,6 +6,10 @@ class CreatedCategoryController {
 
         const { name } = req.body
 
+        if(!name){
+            throw new Error('name the category is requerid')
+        }
+
         const createCategoryService = new CreateCategoryService();
 
         const category = await createCategoryService.execute({

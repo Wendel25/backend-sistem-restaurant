@@ -30,7 +30,7 @@
               "examples": {
                 "login": {
                   "value": {
-                    "email": "wendel.lucca@gmail.com.br",
+                    "email": "usuario.teste@gmail.com",
                     "password": "123456"
                   }
                 }
@@ -105,7 +105,7 @@
                 "$ref": "#/components/schemas/Category"
               },
               "examples": {
-                "login": {
+                "category": {
                   "value": {
                     "name": "new-category"
                   }
@@ -224,17 +224,18 @@
     },
     "/new-product": {
       "post": {
-        "summary": "Create new product",
+        "summary": "Update product",
+        "description": "Update a product by category_id",
         "tags": ["Products"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/CreateProduct"
+                "$ref": "#/components/schemas/UpdateProduct"
               },
               "examples": {
-                "login": {
+                "product": {
                   "value": {
                     "name": "Coca cola",
                     "price": "4.00",
@@ -276,7 +277,7 @@
                 "$ref": "#/components/schemas/UpdateProduct"
               },
               "examples": {
-                "login": {
+                "product": {
                   "value": {
                     "name": "Coca cola",
                     "price": "4.00",
@@ -453,7 +454,7 @@
         }
       }
     },
-    "/order/finish": {
+    "/order/send": {
       "put": {
         "summary": "Closed order",
         "tags": ["Orders"],
@@ -468,6 +469,35 @@
                   "order_id": {
                     "type": "string",
                     "description": "ID da ordem a ser fechada",
+                    "example": "4b226501-0576-4244-876a-b061b2cdf4fb"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order/finish": {
+      "put": {
+        "summary": "Send order",
+        "tags": ["Orders"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "ID da ordem a ser enviada",
                     "example": "4b226501-0576-4244-876a-b061b2cdf4fb"
                   }
                 }
@@ -556,7 +586,8 @@
             "type": "string"
           },
           "banner": {
-            "type": "string"
+            "type": "string",
+            "format": "binary"
           },
           "description": {
             "type": "string"
