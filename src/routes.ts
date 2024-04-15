@@ -18,6 +18,7 @@ import { ListByCategoryController } from './controllers/products/ListByCategoryC
 import { CreatedProductsController } from './controllers/products/CreatedProductsController';
 import { ListProductsController } from './controllers/products/ListProductsController';
 import { ListProductsActiveController } from './controllers/products/ListProductsActivesController';
+import { ListProductDisabledController } from './controllers/products/ListProductDisabled';
 import { UpdateProductController } from './controllers/products/UpdateProductController';
 
 // Tables
@@ -54,6 +55,7 @@ router.delete('/category', isAuthenticated, new DeleteCategoryController().handl
 router.post('/new-product', isAuthenticated, upload.single('banner'), new CreatedProductsController().handle);
 router.get('/products', isAuthenticated, new ListProductsController().handle);
 router.get('/products/active', isAuthenticated, new ListProductsActiveController().handle);
+router.get('/products/disabled', isAuthenticated, new ListProductDisabledController().handle);
 router.get('/category/product', isAuthenticated, new ListByCategoryController().handle);
 router.put('/product', isAuthenticated, upload.single('banner'), new UpdateProductController().handle);
 

@@ -8,7 +8,6 @@ class ListProductsActiveController {
         const product = await listProductsActives.execute()
 
         return res.json(product);
-
     }
 }
 
