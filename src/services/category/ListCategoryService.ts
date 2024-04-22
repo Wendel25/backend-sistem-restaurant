@@ -11,6 +11,9 @@ class ListCategoryService {
                         id: true
                     }
                 }
+            },
+            orderBy: {
+                name: "asc"
             }
         });
 
