@@ -18,6 +18,9 @@ class ListProductsActiveService {
             },
             where: {
                 active: true
+            },
+            orderBy: {
+                name: "asc"
             }
         })
 

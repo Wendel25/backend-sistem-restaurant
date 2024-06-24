@@ -7,6 +7,9 @@ class ListByCategoryService {
             where:{
                 category_id: category_id,
                 active: true
+            },
+            orderBy: {
+                name: "asc"
             }
         })
 

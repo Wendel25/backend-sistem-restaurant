@@ -18,6 +18,9 @@ class ListProductDisabledService {
             },
             where: {
                 active: false
+            },
+            orderBy: {
+                name: "asc"
             }
         })
 

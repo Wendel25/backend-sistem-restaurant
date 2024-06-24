@@ -15,6 +15,9 @@ class ListProductsService {
                         name: true
                     }
                 }
+            },
+            orderBy: {
+                name: "asc"
             }
         });
 
@@ -25,7 +28,7 @@ class ListProductsService {
             }
             namesCategories[categoryName].push({
                 ...product,
-                category: categoryName
+                category: { name: categoryName }
             });
             return namesCategories;
         }, {});

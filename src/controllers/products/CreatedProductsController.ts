@@ -8,19 +8,21 @@ class CreatedProductsController {
         const createdProductService = new CreatedProductService();
 
         if (!name || !price || !category_id) {
-            res.status(400).json({error: "fields invalid"})
+            res.status(400).json({ error: "fields invalid" })
             return;
-        } else if (!req.file) {
-            throw new Error("error upload file")
         } else {
+            let banner = '';
 
-            const { originalname, filename: banner } = req.file
+            if (req.file) {
+                const { originalname, filename } = req.file;
+                banner = filename;
+            }
 
             const products = await createdProductService.execute({ name, price, description, banner, category_id });
 
-            return res.json(products)
+            return res.json(products);
         }
     }
 }
 
-export { CreatedProductsController }
+export { CreatedProductsController };
